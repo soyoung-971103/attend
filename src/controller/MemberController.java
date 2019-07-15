@@ -22,7 +22,7 @@ import model.MemberDTO;
 /**
  * Servlet implementation class MemberController
  */
-@WebServlet({"/member-login.do","/member-register.do"})
+@WebServlet({"/member-login.do","/member-register.do","/member-list.do"})
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -53,7 +53,7 @@ public class MemberController extends HttpServlet {
 		String action = uri.substring(lastIndex + 1); 
 		
 		if(action.equals("member-list.do")) {
-			//list(request, response);
+			list(request, response);
 		}else if(action.equals("member-login.do")) {
 			login(request, response);
 		}else if(action.equals("member-register.do")) {
@@ -91,7 +91,7 @@ public class MemberController extends HttpServlet {
 		
 		int result = dao.delete(request.getParameter("email"));
 		
-		if(result >= 1) {	//회원탈퇴(삭제)성공
+		if(result >= 1) {	//회占쏙옙탈占쏙옙(占쏙옙占쏙옙)占쏙옙占쏙옙
 			response.sendRedirect("member-list.do");
 		}else {
 			request.getRequestDispatcher("fail.jsp").forward(request, response);
@@ -153,39 +153,17 @@ public class MemberController extends HttpServlet {
 		if(member!= null) {	
 			request.setAttribute("name", member.getName());
 			sesobj.setAttribute("uid", member.getId());
-			request.getRequestDispatcher("main.html").forward(request, response);
+			request.getRequestDispatcher("main.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 	
-	/*
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		int totalRows = 0;//전체 상품 수 레코드  or 행의 수
-		totalRows = dao.selectCount();
-		int rowsPerPage = 3; //한 페이지에 나타나는 상품 수 
-		int paginationPerPage= 2;//한 페이지에 나타나는 페이지 번호 수
-		int pageNum = 1;
-		if(request.getParameter("pageNum")!=null) {
-			pageNum = Integer.parseInt(request.getParameter("pageNum")); //요청한 페이지
-			if(pageNum < 0)
-				pageNum = 1;
-		}
-		//반드시 넘겨줘야 함 아니면 현재 페이지 수 모름
-		
-		pn.processPaging(totalRows, pageNum, rowsPerPage, paginationPerPage);
-		
-		if((alMember = dao.selectListBetween(pn.getStartRow(), pn.getEndRow())) != null) {
-			request.setAttribute("list", alMember);
-			request.setAttribute("pagination", pn);
-			request.getRequestDispatcher("customer-list.jsp").forward(request, response);
-			//예외발생하면 호출한 쪽으로 넘김, 최상위까지 넘기고 거기서 메시지 처리함
-		}else {
-			request.getRequestDispatcher("fail.jsp").forward(request, response);
-		}
+		alMember = dao.list();
+		request.setAttribute("memberlist", alMember);
+		request.getRequestDispatcher("ad_student.jsp").forward(request, response);
 	}
-	
-	*/
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	try {
