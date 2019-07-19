@@ -79,11 +79,10 @@
 									<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 									<c:forEach var="dto" items="${ noticelist }">
 									<tr>
-										<td>${dto. id }</td>
 										<td>${ dto.writeday }</td>
 										<td style="text-align:left">${ dto.title }</td>
 										<td>
-											<a href="notice-update.do" class="btn btn-xs btn-outline-primary">수정</a>
+											<a href="notice-detail.do?id=${ dto.id }" class="btn btn-xs btn-outline-primary">수정</a>
 											<a href="notice-delete.do?id=${ dto.id }" class="btn btn-xs btn-outline-danger" onClick="return confirm('삭제할까요 ?');">삭제</a>
 										</td>
 									</tr>

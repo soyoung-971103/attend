@@ -31,27 +31,28 @@
 								
 							<div class="card-body" style="padding:10px">
 
-								<form action="notice-register.do" method="get">
+								<form action="notice-update.do" method="post">
 
 								<table class="table table-bordered mytable-centermiddle" style="width:100%;">
 									<tr>
 										<td class="mycolor2">날짜</td>
 										<td>
 											<div class="form-inline">
-												<input type="text" name="writeday" size="10" value="<%= strdate%>" class="form-control form-control-sm" readonly>
+											<input type="hidden" name="id" value="${notice.id }" class="form-control form-control-sm">
+												<input type="text" name="writeday" size="10" value="${notice.writeday }" class="form-control form-control-sm" readonly>
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<td class="mycolor2">제목</td>
 										<td>
-											<input type="text" name="title" value="" class="form-control form-control-sm" required>
+											<input type="text" name="title" value="${notice.title }" class="form-control form-control-sm" required>
 										</td>
 									</tr>
 									<tr>
 										<td class="mycolor2">내용</td>
 										<td>
-											<textarea rows="10" name="txt1" class="form-control form-control-sm"></textarea>
+											<textarea rows="10" name="txt1" class="form-control form-control-sm">${notice.txt1 }</textarea>
 										</td>
 									</tr>
 								</table>

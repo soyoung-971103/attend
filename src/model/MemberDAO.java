@@ -183,34 +183,6 @@ public class MemberDAO extends DAOBase{
 		return dto;			
 	}
 	*/
-	public ArrayList<MemberDTO> list(){
-		try {
-			conn = getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from student");
-			dtoList = new ArrayList<MemberDTO>();
-			while(rs.next()) {
-				dto = new MemberDTO();
-				dto.setId(rs.getInt(1));
-				dto.setDepart_id(rs.getInt(2));
-				dto.setGrade(rs.getByte(3));
-				dto.setStudent_class(rs.getString(4));
-				dto.setSchoolno(rs.getString(5));
-				dto.setName(rs.getString(6));
-				dto.setPhone(rs.getString(7));
-				dto.setSex(rs.getByte(8));
-				dto.setPwd(rs.getString(9));
-				dto.setPic(rs.getString(10));
-				dto.setState(rs.getString(11));
-				dtoList.add(dto);
-			}
-			return dtoList;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return dtoList;	
-	}
 	
 	/*
 	public ArrayList<MemberDTO> selectListBetween(int start, int end){

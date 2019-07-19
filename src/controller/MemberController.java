@@ -52,21 +52,9 @@ public class MemberController extends HttpServlet {
 		int lastIndex = uri.lastIndexOf('/'); 
 		String action = uri.substring(lastIndex + 1); 
 		
-		if(action.equals("member-list.do")) {
-			list(request, response);
-		}else if(action.equals("member-login.do")) {
+		if(action.equals("member-login.do")) {
 			login(request, response);
-		}else if(action.equals("member-register.do")) {
-			//register(request, response);
-		}else if(action.equals("member-update.do")) {
-			//update(request, response);
-		}else if(action.equals("member-delete.do")) {
-			//delete(request, response);		
-		}else if(action.equals("member-info.do")) {
-			//info(request, response);		
 		}
-		else
-			;
 		
 	}
 	
@@ -157,12 +145,6 @@ public class MemberController extends HttpServlet {
 		}else {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
-	}
-	
-	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		alMember = dao.list();
-		request.setAttribute("memberlist", alMember);
-		request.getRequestDispatcher("ad_student.jsp").forward(request, response);
 	}
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

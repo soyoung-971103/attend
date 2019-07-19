@@ -60,7 +60,7 @@
 										</div>
 									</div>
 									<div class="col" align="right">
-										<a href="ad_studentnew.html" class="btn btn-sm mycolor1">추가</a>
+										<a href="ad_studentnew.jsp" class="btn btn-sm mycolor1">추가</a>
 									</div>
 								</div>
 								</form>
@@ -81,11 +81,11 @@
 								</thead>
 								<tbody>
 								<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-									<c:forEach var="dto" items="${ memberlist }">
+									<c:forEach var="dto" items="${ studentlist }">
 									<tr>
 										<td>${ dto.depart_id }</td>
-										<td>${ dto.student_class }</td>
 										<td>${ dto.grade }</td>
+										<td>${ dto.student_class }</td>
 										<td>${ dto.schoolno }</td>
 										<td>${ dto.name }</td>
 										<td>${ dto.phone }</td>
@@ -93,7 +93,7 @@
 										<td>${ dto.state }</td>
 										<td>
 											<a href="" class="btn btn-xs btn-outline-primary">수정</a>
-											<a href="" class="btn btn-xs btn-outline-danger" onClick="return confirm('삭제할까요 ?');">삭제</a>
+											<a href="student-delete.do?id=${ dto.id }" class="btn btn-xs btn-outline-danger" onClick="return confirm('삭제할까요 ?');">삭제</a>
 										</td>
 									</tr>
 									</c:forEach>

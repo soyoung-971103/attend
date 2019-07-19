@@ -22,7 +22,7 @@ import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import model.NoticeDTO;
 import model.NoticeDAO;
 
-@WebServlet({ "/NoticeController", "/notice-register.do", "/notice-list.do", "/notice-delete.do" })
+@WebServlet({ "/NoticeController","/notice-detail.do", "/notice-register.do","/notice-update.do", "/notice-list.do", "/notice-delete.do" })
 @MultipartConfig(location="", 
 fileSizeThreshold=1024*1024, 
 maxFileSize=1024*1024*5, 
@@ -66,6 +66,10 @@ private static final long serialVersionUID = 1L;
 			register(request, response);
     	else if(action.equals("notice-delete.do")) 
 			delete(request, response);
+    	else if(action.equals("notice-update.do")) 
+			update(request, response);
+    	else if(action.equals("notice-detail.do")) 
+			detail(request, response);
 		else
     		;
     }
@@ -76,24 +80,41 @@ private static final long serialVersionUID = 1L;
 			request.getRequestDispatcher("ad_notice.jsp").forward(request, response);
 	}
     
+    protected void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    	int id = Integer.parseInt(request.getParameter("id"));
+    	System.out.println(id);
+    	notice = dao.detail(id);
+		request.setAttribute("notice", notice);
+		request.getRequestDispatcher("ad_noticeupdate.jsp").forward(request, response);
+    }
+    
     protected void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
     	response.setContentType("text/html;charset=UTF-8");
     	request.setCharacterEncoding("utf-8");
     	
     	int result = dao.register(request, response);
-    	if(result > 0) {// 성공 가입
+    	if(result > 0) {
     		request.getRequestDispatcher("notice-list.do").forward(request, response);
     	}
     	else
-    		response.sendRedirect("register-fail.jsp");; // 실패
+    		response.sendRedirect("register-fail.jsp");
+    }
+    
+    protected void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    	int result = dao.update(request, response); // 질의를 통해 수정된 레코드의 수
+    	if(result > 0) {
+    		request.setAttribute("id", request.getParameter("id"));
+    		request.getRequestDispatcher("notice-list.do").forward(request, response);
+    	}
+    	else
+    		response.sendRedirect("fail.jsp"); // 실패
     }
     
     protected void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-
     	int result = dao.delete(request, response); // 질의를 통해 수정된 레코드의 수
     	if(result > 0) {// 삭제 성공 : 영향 받은 row(record)의 수
     		request.setAttribute("id", request.getParameter("id"));
-    		request.getRequestDispatcher("ad_notice.jsp").forward(request, response);
+    		request.getRequestDispatcher("notice-list.do").forward(request, response);
     	}
     	else
     		response.sendRedirect("fail.jsp"); // 실패

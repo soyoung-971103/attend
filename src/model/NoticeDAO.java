@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class NoticeDAO extends DAOBase {
 	private Connection conn = null;
@@ -44,18 +45,43 @@ public class NoticeDAO extends DAOBase {
 		return alNotice;
 	}
 	
+	public NoticeDTO detail(int id) {
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement(); // 연결 객체로부터 statement 객체 생성
+			rs = stmt.executeQuery("select * from notice where id=" + id);
+			// email, pw는 form을 구성하는 각 요소의 이름
+			
+			if(rs.next()) {
+				notice = new NoticeDTO();
+				notice.setId(rs.getInt(1));
+				notice.setWriteday(rs.getDate(2));
+				notice.setTitle(rs.getString(3));
+				notice.setTxt1(rs.getString(4));
+			}
+			return notice;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			this.closeDBResources(rs, stmt, pstmt, conn);
+		}
+		return notice;
+	}
+	
 	public int register(HttpServletRequest request, HttpServletResponse response) {
 		int result = 0;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+		String today = formatter.format(new java.util.Date());
 		notice = new NoticeDTO();
 		notice.setTitle(request.getParameter("title"));
 		notice.setTxt1(request.getParameter("txt1"));
 		try {
-			notice.setWriteday(formatter.parse(request.getParameter("writeday")));
+			notice.setWriteday(formatter.parse(today));			
     	} catch(ParseException e) {
     		e.printStackTrace();
     	}
-		System.out.println(notice.getWriteday());
+
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement("insert into notice values(?, ?, ?, ?)");
@@ -63,6 +89,29 @@ public class NoticeDAO extends DAOBase {
 	    	pstmt.setDate(2, new java.sql.Date(notice.getWriteday().getTime()));
 	    	pstmt.setString(3, notice.getTitle());
 	    	pstmt.setString(4, notice.getTxt1());
+	    	result = pstmt.executeUpdate(); // 질의를 통해 수정된 레코드의 수
+	    	return result;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			this.closeDBResources(rs, stmt, pstmt, conn);
+		}
+			return result;
+	}
+	
+	public int update(HttpServletRequest request, HttpServletResponse response) {
+		int result = 0;
+		notice = new NoticeDTO();
+		notice.setId(Integer.parseInt(request.getParameter("id")));
+		notice.setTitle(request.getParameter("title"));
+		notice.setTxt1(request.getParameter("txt1"));
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update notice set title=?, txt1=? where id=?");
+			pstmt.setString(1, notice.getTitle());
+	    	pstmt.setString(2, notice.getTxt1());
+	    	pstmt.setInt(3, notice.getId());
 	    	result = pstmt.executeUpdate(); // 질의를 통해 수정된 레코드의 수
 	    	return result;
 		} catch (SQLException e) {
