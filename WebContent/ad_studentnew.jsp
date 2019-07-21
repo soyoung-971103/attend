@@ -25,7 +25,7 @@
 								
 							<div class="card-body" style="padding:10px">
 
-								<form method="get" action="student-register.do" enctype="multipart/form-data">
+								<form method="post" action="student-register.do" enctype="multipart/form-data">
 
 								<table class="table table-bordered mytable-centermiddle" style="width:100%;">
 									<tr>
@@ -124,9 +124,9 @@
 										<td class="mycolor2">생일</td>
 										<td>
 											<div class="form-inline">
-												<input type="text" name="birthday1" size="3" maxlength="4" value="" class="form-control form-control-sm">-
-												<input type="text" name="birthday2" size="4" maxlength="2" value=""	class="form-control form-control-sm">-
-												<input type="text" name="birthday3" size="4" maxlength="2" value="" class="form-control form-control-sm">
+												<input type="text" name="birthday1" size="4" maxlength="4" value="" class="form-control form-control-sm">-
+												<input type="text" name="birthday2" size="2" maxlength="2" value=""	class="form-control form-control-sm">-
+												<input type="text" name="birthday3" size="2" maxlength="2" value="" class="form-control form-control-sm">
 											</div>
 										</td>
 									</tr>

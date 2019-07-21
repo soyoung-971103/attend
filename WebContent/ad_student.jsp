@@ -92,7 +92,7 @@
 										<td>${ dto.sex }</td>
 										<td>${ dto.state }</td>
 										<td>
-											<a href="" class="btn btn-xs btn-outline-primary">수정</a>
+											<a href="student-detail.do?id=${ dto.id }" class="btn btn-xs btn-outline-primary">수정</a>
 											<a href="student-delete.do?id=${ dto.id }" class="btn btn-xs btn-outline-danger" onClick="return confirm('삭제할까요 ?');">삭제</a>
 										</td>
 									</tr>

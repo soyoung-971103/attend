@@ -16,6 +16,7 @@ public class StudentDTO {
 	String pic;
 	String state;
 	String birthday;
+	String email;
 	
 	
 	public int getId() {
@@ -90,5 +91,11 @@ public class StudentDTO {
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
-
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }
