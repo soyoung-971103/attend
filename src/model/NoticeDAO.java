@@ -45,6 +45,31 @@ public class NoticeDAO extends DAOBase {
 		return alNotice;
 	}
 	
+	public ArrayList<NoticeDTO> search(String text1){
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			if (text1 == null) rs=stmt.executeQuery("select * from notice order by writeday");
+			else rs=stmt.executeQuery("select * from notice where title like '%"+ text1 +"%' order by writeday");
+			// email, pw는 form을 구성하는 각 요소의 이름
+			alNotice = new ArrayList<NoticeDTO>();
+			while(rs.next()) {
+				notice = new NoticeDTO();
+				notice.setId(rs.getInt(1));
+				notice.setWriteday(rs.getDate(2));;
+				notice.setTitle(rs.getString(3));
+				notice.setTxt1(rs.getString(4));
+				alNotice.add(notice);
+			} return alNotice;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			this.closeDBResources(rs, stmt, pstmt, conn);
+		}
+		return alNotice;
+	}
+	
 	public NoticeDTO detail(int id) {
 		try {
 			conn = getConnection();

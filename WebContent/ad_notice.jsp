@@ -48,7 +48,7 @@
 										form1.submit();
 									}
 								</script>
-								<form method="post" action="notice-list.do">
+								<form method="post" action="notice-search.do">
 								<div class="row" style="margin-bottom:5px">
 									<div class="col-auto" align="left">
 										<div class="form-inline">

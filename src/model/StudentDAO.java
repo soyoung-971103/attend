@@ -125,6 +125,7 @@ public class StudentDAO extends DAOBase {
 	public int update(HttpServletRequest request, HttpServletResponse response) {
 		int result = 0;
 		student = new StudentDTO();
+		student.setId(Integer.parseInt(request.getParameter("id")));
 		student.setDepart_id(Integer.parseInt(request.getParameter("depart_id")));
 		student.setGrade(Byte.parseByte(request.getParameter("grade")));
 		student.setStudent_class(request.getParameter("student_class"));
@@ -198,5 +199,38 @@ public class StudentDAO extends DAOBase {
 			e.printStackTrace();
 		}
 		return alStudent;	
+	}
+
+	public ArrayList<StudentDTO> search(String text1){
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			if (text1 == null) rs=stmt.executeQuery("select * from student");
+			else rs=stmt.executeQuery("select * from student where name like '%"+ text1 +"%' order by name");
+			// email, pw는 form을 구성하는 각 요소의 이름
+			alStudent = new ArrayList<StudentDTO>();
+			while(rs.next()) {
+				student = new StudentDTO();
+				student.setId(rs.getInt(1));
+				student.setDepart_id(rs.getInt(2));
+				student.setGrade(rs.getByte(3));
+				student.setStudent_class(rs.getString(4));
+				student.setSchoolno(rs.getString(5));
+				student.setName(rs.getString(6));
+				student.setPhone(rs.getString(7));
+				student.setSex(rs.getByte(8));
+				student.setPwd(rs.getString(9));
+				student.setPic(rs.getString(10));
+				student.setState(rs.getString(11));
+				student.setBirthday(rs.getString(12));
+				student.setEmail(rs.getString(13));
+				alStudent.add(student);
+			}
+			return alStudent;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return alStudent;
 	}
 }

@@ -24,7 +24,7 @@ import model.StudentDTO;
 /**
  * Servlet implementation class StudentController
  */
-@WebServlet({"/student-list.do","/student-register.do","/student-delete.do","/student-detail.do","/student-update.do"})
+@WebServlet({"/student-list.do","/student-search.do","/student-register.do","/student-delete.do","/student-detail.do","/student-update.do"})
 @MultipartConfig(location="", 
 fileSizeThreshold=1024*1024, 
 maxFileSize=1024*1024*5, 
@@ -68,6 +68,8 @@ public class StudentController extends HttpServlet {
 			detail(request, response);
 		else if(action.equals("student-update.do")) 
 			update(request, response);
+		else if(action.equals("student-search.do")) 
+			search(request, response);
     	else 
     		;
 		
@@ -79,6 +81,12 @@ public class StudentController extends HttpServlet {
 			request.getRequestDispatcher("ad_student.jsp").forward(request, response);
 	}
 	
+	
+	protected void search(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException{
+		 alStudent = dao.search(request.getParameter("text1"));
+			request.setAttribute("studentlist", alStudent);
+			request.getRequestDispatcher("ad_student.jsp").forward(request, response);
+	}
 	
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -110,8 +118,8 @@ public class StudentController extends HttpServlet {
 	private String partName;
     private String partValue;
 	
-	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		response.setContentType("text/html;charset=UTF-8");
+    protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    	response.setContentType("text/html;charset=UTF-8");
     	request.setCharacterEncoding("utf-8");
     	
     	Collection<Part> parts = request.getParts();
@@ -129,15 +137,15 @@ public class StudentController extends HttpServlet {
 	    	}
 	    	request.setAttribute(partName, partValue);
 	    }
-    	
-		int result = dao.update(request, response);
-
-		if(result > 0) {	
-			request.setAttribute("id", request.getParameter("id"));
-			request.getRequestDispatcher("student-list.do").forward(request, response);
-		}else {
-			request.getRequestDispatcher("update-fail.jsp").forward(request, response);
-		}
+	    
+    	int result = dao.update(request, response); // 질의를 통해 수정된 레코드의 수
+    	System.out.println("result값: "+result);
+    	if(result > 0) {// 성공 가입
+    		request.setAttribute("id", request.getParameter("id"));
+    		request.getRequestDispatcher("student-list.do").forward(request, response);
+    	}
+    	else
+    		response.sendRedirect("update-fail.jsp"); // 실패			
 	}
 	
 	protected void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

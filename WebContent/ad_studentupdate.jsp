@@ -126,6 +126,7 @@
 										<td>
 											<div class="form-inline">
 												<input type="text" name="schoolno" value="${student.schoolno }" class="form-control form-control-sm" required>
+												<input type="hidden" name="id" value="${student.id }" class="form-control form-control-sm" required>
 											</div>
 										</td>
 									</tr>

@@ -43,7 +43,7 @@
 									}
 								</script>
 
-								<form name="form1" method="post" action="">
+								<form method="post" action="student-search.do">
 								<div class="row" style="margin-bottom:5px">
 									<div class="col-auto" align="left">
 										<div class="form-inline">
@@ -89,7 +89,8 @@
 										<td>${ dto.schoolno }</td>
 										<td>${ dto.name }</td>
 										<td>${ dto.phone }</td>
-										<td>${ dto.sex }</td>
+										<c:if test="${dto.sex eq 0 }"><td>남</td></c:if>
+										<c:if test="${dto.sex eq 1 }"><td>여</td></c:if>
 										<td>${ dto.state }</td>
 										<td>
 											<a href="student-detail.do?id=${ dto.id }" class="btn btn-xs btn-outline-primary">수정</a>
