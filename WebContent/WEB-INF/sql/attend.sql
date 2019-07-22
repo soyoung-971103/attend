@@ -1,9 +1,83 @@
-insert into student(depart_id, grade, class, schoolno, name, phone, sex, pwd, pic, state) values(1, 1, '1','1','1','1',1, '1','1','1');
+--insert into student(depart_id, grade, class, schoolno, name, phone, sex, pwd, pic, state) values(1, 1, '1','1','1','1',1, '1','1','1');
+--insert into staff(depart_id, uid, pwd, name, tel, phone, email) values(1, 'staff1', '1234', '김조교', '02 33344444', '01023412323', 'induk@ac.kr');
+insert into teacher(depart_id, kind, uid, pwd, name, tel, phone, email, pic) values(1, '교수', 'test1', '1234', '김길동', '03111112222', '01033556688', 'rlawlsgur25@naver.com', null);
+	
+select * from staff;
+select * from teacher;
+--update staff set name='윤조교' where id=1;
+insert depart(name, classnum, gradesystem) values();
+--update teacher set kind='교수' where id=1;
+drop table teacher;
 
-select  * from student;
-   
-delete from student where id = 2;
-   
+alter table teacher alter column tel varchar(12) NULL;
+alter table teacher alter column phone varchar(12);
+create table teacher ( 
+   id   int     not null    auto_increment,
+   depart_id   int,
+   kind   varchar(5),
+   uid   varchar(20),
+   pwd   varchar(20),
+   name   varchar(20),
+   tel   varchar(15),
+   phone   varchar(15),
+   email   varchar(50),
+   pic   varchar(255),
+   primary key(id)
+);
+
+create table staff ( 
+   id   int     not null    auto_increment,
+   depart_id   int,
+   uid   varchar(20),
+   pwd   varchar(20),
+   name   varchar(20),
+   tel   varchar(11),
+   phone   varchar(20),
+   email   varchar(50),
+   pic   varchar(255),
+   primary key(id)
+);
+
+create table student ( 
+   id   int     not null    auto_increment,
+   depart_id   int,
+   grade   tinyint,
+   class   varchar(5),
+   schoolno   varchar(9),
+   name   varchar(30),
+   phone   varchar(11),
+   sex   tinyint,
+   pwd   varchar(20),
+   pic   varchar(255),
+   state   varchar(5),
+   primary key(id)
+);
+
+create table subject ( 
+   id   int     not null    auto_increment,
+   depart_id   int,
+   code   varchar(20),
+   yyyy   int,
+   grade   tinyint,
+   term   tinyint,
+   ismajor   varchar(5),
+   ischoice   varchar(5),
+   ispractice   varchar(5),
+   name   varchar(50),
+   ipoint   float,
+   ihour   tinyint,
+   primary key(id)
+);
+
+create table timetable ( 
+   id   int     not null    auto_increment,
+   lecture_id   int,
+   weekday   varchar(5),
+   istart   tinyint,
+   ihour   tinyint,
+   room_id   int,
+   primary key(id)
+);
 create table attendcontrol ( 
    id   int     not null    auto_increment,
    subjecttime   tinyint,
@@ -171,72 +245,3 @@ create table room (
    area   int,
    primary key(id)
 );
-
-create table staff ( 
-   id   int     not null    auto_increment,
-   depart_id   int,
-   uid   varchar(20),
-   pwd   varchar(20),
-   name   varchar(20),
-   tel   varchar(11),
-   phone   varchar(20),
-   email   varchar(50),
-   pic   varchar(255),
-   primary key(id)
-);
-
-create table student ( 
-   id   int     not null    auto_increment,
-   depart_id   int,
-   grade   tinyint,
-   class   varchar(5),
-   schoolno   varchar(9),
-   name   varchar(30),
-   phone   varchar(11),
-   sex   tinyint,
-   pwd   varchar(20),
-   pic   varchar(255),
-   state   varchar(5),
-   primary key(id)
-);
-
-create table subject ( 
-   id   int     not null    auto_increment,
-   depart_id   int,
-   code   varchar(20),
-   yyyy   int,
-   grade   tinyint,
-   term   tinyint,
-   ismajor   varchar(5),
-   ischoice   varchar(5),
-   ispractice   varchar(5),
-   name   varchar(50),
-   ipoint   float,
-   ihour   tinyint,
-   primary key(id)
-);
-
-create table teacher ( 
-   id   int     not null    auto_increment,
-   depart_id   int,
-   kind   varchar(2),
-   uid   varchar(20),
-   pwd   varchar(20),
-   name   varchar(20),
-   tel   varchar(11),
-   phone   varchar(11),
-   email   varchar(50),
-   pic   varchar(255),
-   primary key(id)
-);
-
-create table timetable ( 
-   id   int     not null    auto_increment,
-   lecture_id   int,
-   weekday   varchar(5),
-   istart   tinyint,
-   ihour   tinyint,
-   room_id   int,
-   primary key(id)
-);
-

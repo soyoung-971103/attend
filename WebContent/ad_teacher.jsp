@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ page import="java.util.*, java.sql.*, java.io.*" %>
 <% request.setCharacterEncoding("utf-8"); %>
+
 <%@ include file="common.jsp" %>
 <%@ include file="main_top.jsp" %>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	// 이전 문서의 변수들 (page는 예약어) ----------------------------------------------
 	String text1 = request.getParameter("text1");
@@ -62,7 +63,7 @@
 									}
 								</script>
 <!--onKeydown="if (event.keyCode == 13) { find_text(); }" -->
-								<form name="form1" method="post" action="ad_teacher.jsp">
+								<form name="form1" method="post" action="TeacherInquiry">
 								<div class="row" style="margin-bottom:5px">
 									<div class="col-auto" align="left">
 										<div class="form-inline">
@@ -70,7 +71,7 @@
 												<div class="input-group-prepend">
 													<span class="input-group-text">이름</span>
 												</div>
-												<input type="text" name="text1" size="10" value="<%= text1 %>" class="form-control">
+												<input type="text" name="text1" size="10" value="${text1}" class="form-control">
 												<div class="input-group-append">
 													<button class="btn btn-sm mycolor1" type="button">검색</button>
 												</div>
@@ -78,7 +79,7 @@
 										</div>
 									</div>
 									<div class="col" align="right">
-										<a href="ad_teachernew.html" class="btn btn-sm mycolor1">추가</a>
+										<a href="ad_teachernew.jsp" class="btn btn-sm mycolor1">추가</a>
 									</div>
 								</div>
 								</form>
@@ -93,43 +94,42 @@
 										<th>이메일</th>
 										<th width="95"></th>
 									</tr>
-
-									<%
-										while(rs.next()){
-
-											String id = rs.getString("id");
-
-											String depart_id = rs.getString("depart_id");
-
-											if(depart_id.equals("1")) depart_id = "컴소과";
-											else if(depart_id.equals("2"))
-												depart_id = "전자과";
-											String kind = rs.getString("kind");
-											String name = rs.getString("name");
-											String tel = rs.getString("tel");
-											String phone = rs.getString("phone");
-											String email = rs.getString("email");
-
-									%>
-										<tr>
-										<td><%= depart_id %></td>
-										<td><%= kind %></td>
-										<td><%= name %></td>
-										<td><%= tel %></td>
-										<td><%= phone %></td>
-										<td><%= email %></td>
+								<c:forEach var="item" items="${alMember}">
+									<tr>
 										<td>
-											<a href="ad_teacherupdate.jsp?id=<%=id%>" class="btn btn-xs btn-outline-primary">수정</a>
-											<a href="ad_teacherMA.jsp?id=<%=id%>&MA=DELETE" class="btn btn-xs btn-outline-danger" onClick="return confirm('삭제할까요 ?');">삭제</a>
+											<c:choose>
+												<c:when test="${item.getDepart_id() eq '1' }">
+													컴소과
+												</c:when>
+												<c:when test="${item.getDepart_id() eq '2' }">
+													전자과
+												</c:when>
+											</c:choose>
 										</td>
-										</tr>
-									<% }
-									%>
-
+										<td>
+										<c:choose>
+											<c:when test="${item.getKind() eq '교수' }">
+												전임교수
+											</c:when>
+											<c:when test="${item.getKind() eq '강사' }">
+												시간강사
+											</c:when>
+										</c:choose>
+										</td>
+										<td>${item.getName() }</td>
+										<td>${item.getTel() }</td>
+										<td>${item.getPhone() }</td>
+										<td>${item.getEmail() }</td>
+										<td>
+											<a href="TeacherInfo?id=${item.id }" class="btn btn-xs btn-outline-primary">수정</a>
+											<a href="TeacherDelete?id=${item.id }" class="btn btn-xs btn-outline-danger" onClick="return confirm('삭제할까요 ?');">삭제</a>
+										</td>
+									</tr>
+								</c:forEach>
 								</table>
 
 								<%
-									String nurl = "ad_teacher.jsp?text1="+text1;
+									String nurl = "TeacherController?text1="+text1;
 									out.println(pagination(npage, count, nurl));
 								%>
 

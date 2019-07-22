@@ -46,7 +46,7 @@ public class BuildingController extends HttpServlet {
 		if(action.equals("member-list.do")) {
 			//list(request, response);
 		}else if(action.equals("member-login.do")) {
-			login(request, response);
+			//login(request, response);
 		}else if(action.equals("member-register.do")) {
 			//register(request, response);
 		}else if(action.equals("member-update.do")) {

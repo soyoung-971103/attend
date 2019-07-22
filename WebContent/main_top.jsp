@@ -78,8 +78,8 @@
 							<li><a href="ad_notice.html" style="padding:5px 0 5px 40px;">공지사항</a></li>
 							<li><hr style="background-color:gray;margin:0 25px 0 25px;"></li>
 							<li><a href="ad_student.html" style="padding:5px 0 5px 40px;">학생정보</a></li>
-							<li><a href="ad_teacher.jsp" style="padding:5px 0 5px 40px;">교수정보</a></li>
-							<li><a href="ad_assist.jsp" style="padding:5px 0 5px 40px;">조교정보</a></li>
+							<li><a href="TeacherInquiry" style="padding:5px 0 5px 40px;">교수정보</a></li>
+							<li><a href="AssistInquiry" style="padding:5px 0 5px 40px;">조교정보</a></li>
 							<li><hr style="background-color:gray;margin:0 25px 0 25px;"></li>
 							<li><a href="ad_depart.jsp" style="padding:5px 0 5px 40px;">학과/부서</a></li>
 							<li><a href="ad_room.html" style="padding:5px 0 5px 40px;">강의실</a></li>

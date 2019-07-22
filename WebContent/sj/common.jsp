@@ -1,5 +1,6 @@
+<%@ page import="java.sql.*" %>
 <%
-	Class.forName("com.mysql.jdbc.Driver");
+	Class.forName("com.mysql.cj.jdbc.Driver");
 
 	url="jdbc:mysql://cs.induk.ac.kr:53306/attend?useUnicode=true&characterEncoding=utf8";
 	conn = DriverManager.getConnection(url,"attend","attenddb");
