@@ -93,11 +93,8 @@ public class HolidayController extends HttpServlet {
 	
 	
 	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-			
-		dto = new HolidayDTO();
-    	
-		dto.setYyyy(Integer.parseInt(request.getParameter("yyyy")));
 		
+		dto.setYyyy(Integer.parseInt(request.getParameter("yyyy")));
 		SimpleDateFormat utilDate = new SimpleDateFormat("yyyy-MM-dd");
 		String day = request.getParameter("holiday");
 		try {
