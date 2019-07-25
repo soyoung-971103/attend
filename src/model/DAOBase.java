@@ -42,7 +42,7 @@ public class DAOBase implements DAO {
 		}	
 	}
 		
-	
+	 
 	@Override
 	public Connection getConnection() throws SQLException {		
 		try {
@@ -50,11 +50,11 @@ public class DAOBase implements DAO {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		try {
-			//String url="jdbc:mysql://gamejigix.induk.ac.kr:53306/attend?useUnicode=true&characterEncoding=utf8&serverTimeZone=UTC";
-			//conn = DriverManager.getConnection(url, "attend", "attenddb");
-			String url="jdbc:mysql://localhost:3306/attend?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";			
-			conn = DriverManager.getConnection(url, "root", "1234");
+		try {	
+			String url="jdbc:mysql://gamejigix.induk.ac.kr:53306/attend?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
+			conn = DriverManager.getConnection(url,"attend","attenddb");
+			//String url="jdbc:mysql://localhost:3306/attend?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";			
+			//conn = DriverManager.getConnection(url, "root", "1234");
 			//연결정보를 이용한 연결(connection) 객체생성
 			return conn; //연결 객체로부터  statement 객체 생성	 
 		}catch (SQLException e) {
