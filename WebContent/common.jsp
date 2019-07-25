@@ -1,11 +1,13 @@
 <!-- 화살표 때문에 인코딩방식 설정 김진혁-->
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page contentType="text/html;charset=utf-8" import="java.sql.*"%>
+
 
 <%
 	Class.forName("com.mysql.jdbc.Driver");
 
-	url="jdbc:mysql://cs.induk.ac.kr:53306/attend?useUnicode=true&characterEncoding=utf8";
-	conn = DriverManager.getConnection(url,"attend","attenddb");
+	String url="jdbc:mysql://gamejigix.induk.ac.kr:53306/attend?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	conn = DriverManager.getConnection(url, "attend", "attenddb");
+
 	stmt=conn.createStatement();
 %>
 <%!

@@ -26,8 +26,7 @@ public class HolidayDAO extends DAOBase{
 		try {
 			
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into Holiday " + 
-					"values(?, ?, ?)");
+			pstmt = conn.prepareStatement("insert into holiday " + "values(?, ?, ?)");
 			
 			pstmt.setInt(1, dto.getYyyy()); 
 			pstmt.setDate(2, dto.getHoliday());
@@ -50,7 +49,7 @@ public class HolidayDAO extends DAOBase{
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("update Holiday " + 
+			pstmt = conn.prepareStatement("update holiday " + 
 			"set yyyy=?, holiday=?, reason=? where id=?");
 			
 			
@@ -75,7 +74,7 @@ public class HolidayDAO extends DAOBase{
 		int result = 0;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("delete from Holiday where id=? ");
+			pstmt = conn.prepareStatement("delete from holiday where id=? ");
 			pstmt.setInt(1, id);
 			result = pstmt.executeUpdate();	
 			return result;
@@ -94,11 +93,13 @@ public class HolidayDAO extends DAOBase{
 			conn = getConnection();
 			stmt = conn.createStatement();
 			dtoList = new ArrayList<HolidayDTO>();
-			rs = stmt.executeQuery("select * from Holiday");
+			rs = stmt.executeQuery("select * from holiday");
 			while(rs.next()) {
 				dto = new HolidayDTO(); 
-				pstmt.setDate(1, dto.getHoliday());
-				pstmt.setString(2, dto.getReason());
+				dto.setId(rs.getInt(1));
+				dto.setYyyy(rs.getInt(2));
+				dto.setHoliday(rs.getDate(3));
+				dto.setReason(rs.getString(4));
 				dtoList.add(dto);
 			}
 			return dtoList;
@@ -113,7 +114,7 @@ public class HolidayDAO extends DAOBase{
 		try {
 	  		conn = getConnection();
 	  		stmt = conn.createStatement();
-	  		rs = stmt.executeQuery("select * from Holiday" + 
+	  		rs = stmt.executeQuery("select * from holiday" + 
 	  		" where id = " + dtoInfo.getId());
 	  		if(rs.next()) {
 	  			dto = new HolidayDTO();

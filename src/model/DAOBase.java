@@ -51,11 +51,9 @@ public class DAOBase implements DAO {
 			e.printStackTrace();
 		}
 		try {
-			//String url="jdbc:mysql://cs.induk.ac.kr:53306/attend?useUnicode=true&characterEncoding=utf8";
-			String url="jdbc:mysql://localhost:8080/attend?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";			
-			conn = DriverManager.getConnection(url, "root", "1234");
-			//���������� �̿��� ����(connection) ��ü����
-			return conn; //���� ��ü�κ���  statement ��ü ����	 
+			String url="jdbc:mysql://gamejigix.induk.ac.kr:53306/attend?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	         conn = DriverManager.getConnection(url, "attend", "attenddb");
+	         return conn; 
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

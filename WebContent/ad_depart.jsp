@@ -112,7 +112,7 @@
         <tbody>
         <c:forEach var="depart" items="${list}">
 			<tr>
-				<td>${ depart.no}</td>
+				<td>${ depart.id}</td>
 				<td>${ depart.name}</td>
 				<td>${ depart.classnum}</td>
 				<td>${ depart.gradesystem}</td>

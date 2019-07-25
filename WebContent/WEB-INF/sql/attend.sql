@@ -21,7 +21,7 @@ create table building (
 );
 
 create table depart ( 
-   id   int     not null    auto_increment,
+   id   int     not null	auto_increment,
    name   varchar(50),
    classnum   tinyint,
    gradesystem   tinyint,

@@ -113,7 +113,7 @@
         							<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 									<c:forEach var="holiday" items="${list}">
 									<tr>
-										<td>${ holiday.date}</td>
+										<td>${ holiday.holiday}</td>
 										<td style="text-align:left">${ holiday.reason}</td>
 										<td>
 											<a href="holiday-info.do?id=${ holiday.id}" class="btn btn-xs btn-outline-primary">수정</a>
