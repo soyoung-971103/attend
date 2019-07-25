@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,7 +51,6 @@ public class HolidayDAO extends DAOBase{
 			conn = getConnection();
 			pstmt = conn.prepareStatement("update holiday " + 
 			"set yyyy=?, holiday=?, reason=? where id=?");
-			
 			
 			pstmt.setInt(1, dto.getYyyy()); 
 			pstmt.setDate(2, new java.sql.Date(dto.getHoliday().getTime()));
@@ -119,6 +117,7 @@ public class HolidayDAO extends DAOBase{
 	  		" where id = " + dtoInfo.getId());
 	  		if(rs.next()) {
 	  			dto = new HolidayDTO();
+	  			dto.setId(rs.getInt(1));
 	  			dto.setYyyy(rs.getInt(2)); 
 				dto.setHoliday(rs.getDate(3));
 				dto.setReason(rs.getString(4));
