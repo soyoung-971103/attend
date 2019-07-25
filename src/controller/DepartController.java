@@ -73,7 +73,7 @@ public class DepartController extends HttpServlet {
   			request.setAttribute("depart", dto);
   			request.getRequestDispatcher("ad_departUpdate.jsp").forward(request, response);
   		}else {
-  			request.getRequestDispatcher("main.jsp").forward(request, response);
+  			request.getRequestDispatcher("depart-list.do").forward(request, response);
   		}
 	}
 	
@@ -101,7 +101,7 @@ public class DepartController extends HttpServlet {
 		if(result >= 1) {	
 			request.getRequestDispatcher("depart-list.do").forward(request, response);
 		}else {
-			request.getRequestDispatcher("main.jsp").forward(request, response);
+			request.getRequestDispatcher("ad_departUpdate.jsp").forward(request, response);
 		}
 	}
 	

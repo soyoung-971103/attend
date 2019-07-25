@@ -73,10 +73,10 @@ public class HolidayController extends HttpServlet {
     	dto = dao.selectOne(dtoInfo);
     	
     	if(dto != null) {
-  			request.setAttribute("Holiday", dto);
-  			request.getRequestDispatcher("ad_holiday_update.jsp").forward(request, response);
+  			request.setAttribute("holiday", dto);
+  			request.getRequestDispatcher("ad_holidayupdate.jsp").forward(request, response);
   		}else {
-  			request.getRequestDispatcher("main.jsp").forward(request, response);
+  			request.getRequestDispatcher("holiday-list.do").forward(request, response);
   		}
 	}
 	
@@ -97,16 +97,15 @@ public class HolidayController extends HttpServlet {
 		dto = new HolidayDTO();
     	
 		dto.setYyyy(Integer.parseInt(request.getParameter("yyyy")));
-		java.util.Date utilDate = new java.util.Date();
+		
+		SimpleDateFormat utilDate = new SimpleDateFormat("yyyy-MM-dd");
+		String day = request.getParameter("holiday");
 		try {
-			utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("holiday"));
+			dto.setHoliday(utilDate.parse(day));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		
-		dto.setHoliday(sqlDate);
 		dto.setReason(request.getParameter("reason"));
 		
 		int result = dao.update(dto);
@@ -114,7 +113,7 @@ public class HolidayController extends HttpServlet {
 		if(result >= 1) {	
 			request.getRequestDispatcher("holiday-list.do").forward(request, response);
 		}else {
-			request.getRequestDispatcher("ad_holiday.jsp").forward(request, response);
+			request.getRequestDispatcher("ad_holidayupdate.jsp").forward(request, response);
 		}
 	}
 	
@@ -125,24 +124,20 @@ public class HolidayController extends HttpServlet {
     	
 		dto.setYyyy(Integer.parseInt(request.getParameter("yyyy")));
 		
-		java.util.Date utilDate = null;
-		utilDate = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat utilDate = new SimpleDateFormat("yyyy-MM-dd");
+		String day = request.getParameter("holiday");
 		try {
-			utildate.parse(request.getParameter("holiday"));
+			dto.setHoliday(utilDate.parse(day));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		java.sql.Date sqlDate = null;
-		
-		
-		dto.setHoliday(sqlDate);
 		
 		dto.setReason(request.getParameter("reason"));
 		int result = dao.insert(dto);
 		
 		if(result >= 1) {	
-			request.getRequestDispatcher("ad_holiday.jsp").forward(request, response);
+			request.getRequestDispatcher("holiday-list.do").forward(request, response);
 		}else {
 			request.getRequestDispatcher("ad_holidaynew.jsp").forward(request, response);
 		}

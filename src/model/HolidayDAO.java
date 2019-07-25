@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,11 +27,11 @@ public class HolidayDAO extends DAOBase{
 		try {
 			
 			conn = getConnection();
-			pstmt = conn.prepareStatement("insert into holiday " + "values(?, ?, ?)");
-			
-			pstmt.setInt(1, dto.getYyyy()); 
-			pstmt.setDate(2, dto.getHoliday());
-			pstmt.setString(3, dto.getReason());
+			pstmt = conn.prepareStatement("insert into holiday " + "values(?, ?, ?, ?)");
+			pstmt.setInt(1, dto.getId());
+			pstmt.setInt(2, dto.getYyyy()); 
+			pstmt.setDate(3, new java.sql.Date(dto.getHoliday().getTime()));
+			pstmt.setString(4, dto.getReason());
 			
 			result = pstmt.executeUpdate();
 			return result;
@@ -54,7 +55,7 @@ public class HolidayDAO extends DAOBase{
 			
 			
 			pstmt.setInt(1, dto.getYyyy()); 
-			pstmt.setDate(2, dto.getHoliday());
+			pstmt.setDate(2, new java.sql.Date(dto.getHoliday().getTime()));
 			pstmt.setString(3, dto.getReason());
 			pstmt.setInt(4, dto.getId());
 			
@@ -118,9 +119,9 @@ public class HolidayDAO extends DAOBase{
 	  		" where id = " + dtoInfo.getId());
 	  		if(rs.next()) {
 	  			dto = new HolidayDTO();
-	  			pstmt.setInt(1, dto.getYyyy()); 
-				pstmt.setDate(2, dto.getHoliday());
-				pstmt.setString(3, dto.getReason());
+	  			dto.setYyyy(rs.getInt(2)); 
+				dto.setHoliday(rs.getDate(3));
+				dto.setReason(rs.getString(4));
 	  		}      			
 	  		return dto;
 	  	} catch (SQLException e) {	
@@ -141,7 +142,7 @@ public class HolidayDAO extends DAOBase{
 			rs = stmt.executeQuery("select * from holiday where yyyy="+text);
 			while(rs.next()) {
 				dto = new HolidayDTO();
-				pstmt.setDate(1, dto.getHoliday());
+				pstmt.setDate(1, new java.sql.Date(dto.getHoliday().getTime()));
 				pstmt.setString(2, dto.getReason());
 				dtoList.add(dto);
 			}
