@@ -96,7 +96,7 @@
 						<a href="#"><i class="fa fa-fw fa-table"></i> <span> 학생 </span> <span class="menu-arrow"></span></a>
 						<ul class="list-unstyled">
 							<li><a href="st_main.html" style="padding:5px 0 5px 40px;">학생 메인</a></li>
-							<li><a href="st_time.html" style="padding:5px 0 5px 40px;">시간표</a></li>
+							<li><a href="mylecture-sdetail.do" style="padding:5px 0 5px 40px;">시간표</a></li>
 							<li><a href="st_lecall.html" style="padding:5px 0 5px 40px;">출석부</a></li>
 							<li><hr style="background-color:gray;margin:0 25px 0 25px;"></li>
 							<li><a href="st_lec.html" style="padding:5px 0 5px 40px;">수강신청</a></li>
