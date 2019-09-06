@@ -62,10 +62,12 @@
 				function load_lec()			// 해당학기 시간표읽어 모두 표시
 				{	
 					var dp = form1.sel3.value;
+					var yy = form1.sel1.value;
+					var te = form1.sel2.value;
 					//   0     1    2          3        4       5          6        7
 					// 학년^반^요일^시작교시^시간^과목명^교수님^강의실
 					<c:forEach items="${list}" var="item2">
-					if(dp == "${item2.lecture.subject.depart_id}"){
+					if(dp == "${item2.lecture.subject.depart_id}" && yy == "${item2.lecture.subject.yyyy}" && te == "${item2.lecture.subject.term}"){
 					var timetable=
 						'${item2.lecture.subject.grade}^${item2.lecture._class}^${item2.weekday}^${item2.istart}^${item2.ihour}^${item2.lecture.subject.name}^${item2.lecture.teacher.name}^${item2.room.name}';
 						

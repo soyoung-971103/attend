@@ -32,7 +32,7 @@ public class TimeTableDAO extends DAOBase {
 			stmt = conn.createStatement();
 			
 			dtoList = new ArrayList<TimeTableDTO>();
-			rs = stmt.executeQuery("SELECT timetable.*, room.id, room.name, lecture.class, subject.grade, subject.ihour, subject.name, subject.depart_id, teacher.id, teacher.name FROM timetable LEFT JOIN room ON timetable.room_id = room.id LEFT JOIN lecture ON timetable.lecture_id = lecture.id LEFT JOIN subject ON subject.id = lecture.subject_id LEFT JOIN teacher ON teacher.id = lecture.teacher_id");
+			rs = stmt.executeQuery("SELECT timetable.*, room.id, room.name, lecture.class, subject.grade, subject.ihour, subject.name, subject.depart_id, subject.yyyy, subject.term, teacher.id, teacher.name FROM timetable LEFT JOIN room ON timetable.room_id = room.id LEFT JOIN lecture ON timetable.lecture_id = lecture.id LEFT JOIN subject ON subject.id = lecture.subject_id LEFT JOIN teacher ON teacher.id = lecture.teacher_id");
 			while(rs.next()) {
 				// 번호^학년^반^시간^요일^시작교시^시간^과목명^교수님번호^교수님^강의실번호^강의실
 				///번호 id
@@ -67,9 +67,11 @@ public class TimeTableDAO extends DAOBase {
 				dtoSubject.setIhour(rs.getByte(11));
 				dtoSubject.setName(rs.getString(12));
 				dtoSubject.setDepart_id(rs.getInt(13));
+				dtoSubject.setYyyy(rs.getInt(14));
+				dtoSubject.setTerm(rs.getByte(15));
 				dtoLecture.setSubject(dtoSubject);
-				dtoTeacher.setId(rs.getInt(14));
-				dtoTeacher.setName(rs.getString(15));
+				dtoTeacher.setId(rs.getInt(16));
+				dtoTeacher.setName(rs.getString(17));
 				dtoLecture.setTeacher(dtoTeacher);
 				dtoList.add(dto);
 			}

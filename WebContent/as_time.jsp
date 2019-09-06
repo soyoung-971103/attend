@@ -90,8 +90,6 @@
 
 					function make_lecture(h)	// 새강의 그리기
 					{
-						
-						alert(c);
 						if(c==null) c=1;
 						else c=Number(c)+1;
 						str = form1.sel4.value;
@@ -112,9 +110,11 @@
 					function load_lec()			// 해당학기 시간표읽어 모두 표시
 					{	
 						var dp = form1.sel_dp.value;
+						var yy = form1.sel1.value;
+						var te = form1.sel2.value;
 						// 번호^학년^반^시간^요일^시작교시^시간^과목명^교수님번호^교수님^강의실번호^강의실
 						<c:forEach items="${list}" var="item2">
-						if(dp == "${item2.lecture.subject.depart_id}"){
+						if(dp == "${item2.lecture.subject.depart_id}" && yy == "${item2.lecture.subject.yyyy}" && te == "${item2.lecture.subject.term}"){
 						var timetable=
 							'${item2.id}^${item2.lecture_id}^${item2.lecture.subject.grade}^${item2.lecture._class}^${item2.lecture.subject.ihour}^${item2.weekday}^${item2.istart}^${item2.ihour}^${item2.lecture.subject.name}^${item2.lecture.teacher.id}^${item2.lecture.teacher.name}^${item2.room.id}^${item2.room.name}';
 						
